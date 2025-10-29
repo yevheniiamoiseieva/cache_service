@@ -1,0 +1,28 @@
+properties:
+  event_id:
+    type: "long"
+
+  title:
+    type: "text"
+    fielddata: true
+    fields:
+      raw:
+        type: "keyword"
+        analyzer: "keyword_lowercase"
+        ignore_above: 256
+
+  description:
+    type: "text"
+    fielddata: true
+
+  date:
+    type: "date"
+    format: "yyyy-MM-dd HH:mm:ss||strict_date_optional_time||epoch_millis"
+
+  created_at:
+    type: "date"
+    format: "yyyy-MM-dd HH:mm:ss||strict_date_optional_time||epoch_millis"
+
+  updated_at:
+    type: "date"
+    format: "yyyy-MM-dd HH:mm:ss||strict_date_optional_time||epoch_millis"
