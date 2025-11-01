@@ -61,13 +61,6 @@ module ElasticServices
       end
     end
 
-    begin
-      @elastic_logger ||= Logger.new($stdout)
-      @client_pool ||= ElasticConnector.connection_pool
-    rescue StandardError => e
-      @elastic_logger.error("Error with client initialization: #{e.inspect}.")
-    end
-
     attr_accessor :client_pool, :index, :logger, :params, :size, :from
 
     def initialize(args)
