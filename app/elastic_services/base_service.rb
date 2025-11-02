@@ -1,8 +1,8 @@
 require 'logger'
 require 'elasticsearch'
-require_relative '../constants'
-require_relative '../elastic_connector'
-require_relative 'mapper'
+require 'constants'
+require 'initializers/elastic_connector'
+require 'elastic_services/mapper'
 
 module ElasticServices
   class BaseService
@@ -16,7 +16,7 @@ module ElasticServices
 
       def setup_elastic_client
         @elastic_logger ||= Logger.new($stdout)
-        @client_pool ||= ElasticConnector.connection_pool
+        @client_pool ||= ElasticConnector.instance.connection_pool
         find_or_create_index
       rescue StandardError => e
         @elastic_logger.error("Error with client initialization during setup: #{e.inspect}.")

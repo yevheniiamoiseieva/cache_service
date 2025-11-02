@@ -11,7 +11,7 @@ WORKDIR /app
 COPY Gemfile /app/
 COPY Gemfile.lock /app/
 
-RUN bundle install --jobs 4 --retry 3 --without development test
+RUN bundle install --jobs 4 --retry 3
 
 COPY . /app
 

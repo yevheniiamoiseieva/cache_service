@@ -1,17 +1,10 @@
 require 'yaml'
 require 'logger'
+require 'constants'
 
 module ElasticServices
   module Mapper
     include Constants::Elasticsearch
-
-    def mapping(client, index = INDEX_NAME)
-      if index == INDEX_NAME
-        setup_mapping(client, index)
-      else
-        raise "Unsupported index: #{index}"
-      end
-    end
 
     def parse_mapping
       YAML.load_file(Constants::MAPPING_PLACE)
@@ -25,6 +18,14 @@ module ElasticServices
     rescue StandardError => e
       Logger.new($stdout).error("Error parsing settings file: #{e.inspect}")
       {}
+    end
+
+    def mapping(client, index = INDEX_NAME)
+      if index == INDEX_NAME
+        setup_mapping(client, index)
+      else
+        raise "Unsupported index: #{index}"
+      end
     end
 
     def setup_mapping(client, index)

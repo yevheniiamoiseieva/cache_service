@@ -8,9 +8,10 @@ services:
       - discovery.type=single-node
       - xpack.security.enabled=false
       - ES_JAVA_OPTS=${ES_JAVA_OPTS}
+      - cluster.name=docker-cluster
     ports:
-      - "9200:9200"
-      - "9300:9300"
+      - "${ES_PORT_HTTP}:9200"
+      - "${ES_PORT_TRANSPORT}:9300"
     volumes:
       - esdata:/usr/share/elasticsearch/data
     ulimits:
@@ -29,10 +30,14 @@ services:
     build: .
     container_name: cache_service
     environment:
-      - ELASTICSEARCH_URL=http://es:9200
+      - ELASTICSEARCH_URL=${ELASTICSEARCH_URL}
+      - ELASTIC_POOL_SIZE=${ELASTIC_POOL_SIZE}
+      - ELASTIC_POOL_TIMEOUT=${ELASTIC_POOL_TIMEOUT}
+      - ELASTIC_INDEX_NAME=${ELASTIC_INDEX_NAME}
+      - ELASTIC_INDEX_ALIAS=${ELASTIC_INDEX_ALIAS}
       - RACK_ENV=production
     ports:
-      - "9292:9292"
+      - "${CACHE_APP_PORT}:9292"
     networks:
       - backend_cache_network
 
@@ -49,7 +54,7 @@ services:
     environment:
       - ELASTICSEARCH_HOSTS=http://es:9200
     ports:
-      - "5601:5601"
+      - "${KIBANA_PORT}:5601"
     networks:
       - backend_cache_network
     depends_on:

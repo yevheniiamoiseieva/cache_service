@@ -1,7 +1,7 @@
 require 'roda'
 require 'json'
-require_relative 'elastic_services/reader'
-require_relative 'services/update_or_create_service'
+require 'elastic_services/reader'
+require 'services/update_or_create_service'
 
 class Router < Roda
   plugin :json
