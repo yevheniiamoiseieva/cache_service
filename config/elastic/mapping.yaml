@@ -1,0 +1,19 @@
+properties:
+  event_id:
+    type: "long"
+
+  title:
+    type: "text"
+    fielddata: true
+    fields:
+      raw:
+        type: "keyword"
+        analyzer: "keyword_lowercase"
+
+  description:
+    type: "text"
+    fielddata: true
+
+date:
+  type: "date"
+  format: "strict_date_optional_time"

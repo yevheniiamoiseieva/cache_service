@@ -1,14 +1,19 @@
+
 require 'bundler/setup'
-require_relative 'app/constants'
-require_relative 'app/elastic_connector'
-require_relative 'app/elastic_services/mapper'
-require_relative 'app/elastic_services/base_service'
+require 'pathname'
 
-require_relative 'app/elastic_services/reader'
-require_relative 'app/elastic_services/writer'
-require_relative 'app/elastic_services/updater'
+APP_ROOT = Pathname.new(File.expand_path('../', __FILE__))
+$LOAD_PATH.unshift(APP_ROOT.to_s)
+$LOAD_PATH.unshift(APP_ROOT.join('app').to_s)
+$LOAD_PATH.unshift(APP_ROOT.join('config').to_s)
 
-require_relative 'app/services/update_or_create_service'
-require_relative 'app/router'
-
-ElasticServices::BaseService
+require 'constants'
+require 'config/initializers/elastic_connector'
+require 'elastic_services/base_service'
+require 'elastic_services/mapper'
+require 'elastic_services/reader'
+require 'elastic_services/writer'
+require 'elastic_services/updater'
+require 'constants'
+require 'services/update_or_create_service'
+require 'router'

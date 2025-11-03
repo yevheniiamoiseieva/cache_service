@@ -1,6 +1,6 @@
-require_relative '../elastic_services/reader'
-require_relative '../elastic_services/writer'
-require_relative '../elastic_services/updater'
+require 'elastic_services/reader'
+require 'elastic_services/writer'
+require 'elastic_services/updater'
 
 class UpdateOrCreateService
 
